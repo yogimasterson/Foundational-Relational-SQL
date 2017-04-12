@@ -43,7 +43,9 @@ FROM goal JOIN game ON matchid=id
 
 -- 8. The example query shows all goals scored in the Germany-Greece quarterfinal.
    -- Instead show the name of all players who scored a goal against Germany.
-
+SELECT DISTINCT player
+  FROM game JOIN goal ON matchid = id
+    WHERE (teamid = team1 AND team2 = 'GER') OR (teamid = team2 AND team1 = 'GER') AND teamid != 'GER'
 -- 9. Show teamname and the total number of goals scored.
 SELECT teamname, COUNT(gtime)
 FROM eteam JOIN goal ON id=teamid
@@ -65,3 +67,11 @@ FROM game JOIN goal ON matchid=id
         10 June 2012	ESP	    1	     ITA	  1
         10 June 2012	IRL	    1	     CRO	  3
     -- Notice in the query given every goal is listed. If it was a team1 goal then a 1 appears in score1, otherwise there is a 0. You could SUM this column to get a count of the goals scored by team1. Sort your result by mdate, matchid, team1 and team2.
+SELECT mdate,
+       team1,
+       SUM(CASE WHEN teamid = team1 THEN 1 ELSE 0 END) AS score1,
+       team2,
+       SUM(CASE WHEN teamid = team2 THEN 1 ELSE 0 END) AS score2 FROM
+    game LEFT JOIN goal ON (id = matchid)
+    GROUP BY mdate,team1,team2
+    ORDER BY mdate, matchid, team1, team2
