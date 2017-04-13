@@ -7,8 +7,8 @@ It is recommended that you complete these specs in order. The LeetCode exercises
 
 - [x] SQLBolt exercises completed
   - [x] Solutions added to artifact repo
-- [ ] Exercises in “Tutorials: Learn SQL in stages” section on SQLZOO completed
-   - [ ] Solutions added to artifact repo
+- [x] Exercises in “Tutorials: Learn SQL in stages” section on SQLZOO completed
+   - [x] Solutions added to artifact repo
 
 ##SQL Foundations Practice Exercises
 

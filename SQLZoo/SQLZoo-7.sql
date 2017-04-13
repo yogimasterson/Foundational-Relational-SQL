@@ -14,7 +14,8 @@ SELECT id, title, yr FROM movie
   ORDER BY yr
 
 -- 4. What id number does the actor 'Glenn Close' have?
-
+SELECT id FROM actor
+WHERE name = "Glenn Close"
 -- 5. What is the id of the film 'Casablanca'
 SELECT id FROM movie
   WHERE title = 'Casablanca'
@@ -22,16 +23,21 @@ SELECT id FROM movie
 -- 6. Obtain the cast list for 'Casablanca'.
    -- what is a cast list?
    -- Use movieid=11768, (or whatever value you got from the previous question)
-
+SELECT ti.name FROM actor AS ti
+JOIN casting AS cl ON ti.id = actorid
+JOIN movie AS t ON t.id=movieid
+  WHERE movieid=11768
 -- 7. Obtain the cast list for the film 'Alien'
-SELECT name
-FROM casting
+SELECT name FROM casting
 JOIN movie ON movieid = movie.id
 JOIN actor ON actor.id = actorid
   WHERE title = 'Alien'
 
 -- 8. List the films in which 'Harrison Ford' has appeared
-
+SELECT t.title FROM actor AS ti
+Join casting AS cl ON ti.id = actorid
+Join movie AS t ON t.id=movieid
+  WHERE actorid = '2216'
 -- 9. List the films where 'Harrison Ford' has appeared - but not in the starring role. [Note: the ord field of casting gives the position of the actor. If ord=1 then this actor is in the starring role]
 SELECT DISTINCT(title) FROM movie
   JOIN casting ON movie.id=movieid
@@ -39,6 +45,10 @@ SELECT DISTINCT(title) FROM movie
     WHERE actorid = 2216 AND ord != 1
 
 -- 10. List the films together with the leading star for all 1962 films.
+SELECT title, name FROM actor AS ti
+  JOIN casting AS cl ON ti.id = actorid
+  JOIN movie AS t ON t.id=movieid
+    WHERE yr = 1962 AND ord = 1
 
 -- 11. Which were the busiest years for 'John Travolta', show the year and the number of movies he made each year for any year in which he made more than 2 movies.
 SELECT yr, COUNT(title) FROM movie
@@ -54,6 +64,13 @@ SELECT yr, COUNT(title) FROM movie
         GROUP BY yr) AS t)
 
 -- 12. List the film title and the leading actor for all of the films 'Julie Andrews' played in.
+SELECT m.title, a.name FROM movie m
+  JOIN casting c ON m.id = c.movieid AND c.ord = 1
+  JOIN actor a ON a.id = c.actorid
+    WHERE m.id IN (SELECT m1.id FROM movie m1
+      JOIN casting c1 ON m1.id = c1.movieid
+      JOIN actor a1 ON a1.id = c1.actorid
+        WHERE  a1.name = 'Julie Andrews')
 
 -- 13. Obtain a list, in alphabetical order, of actors who've had at least 30 starring roles.
 SELECT DISTINCT name FROM actor
@@ -64,7 +81,13 @@ SELECT DISTINCT name FROM actor
       HAVING COUNT(ord = 1) >= 30
 
 -- 14. List the films released in the year 1978 ordered by the number of actors in the cast, then by title.
-
+SELECT title, COUNT(actorid) AS actors FROM movie
+  JOIN casting ON movie.id = movieid
+  JOIN actor ON actor.id = actorid
+    WHERE yr = 1978
+      GROUP BY title
+      ORDER BY actors DESC, title
+      
 -- 15. List all the people who have worked with 'Art Garfunkel'.
 SELECT DISTINCT name FROM actor
   JOIN casting ON actor.id = casting.actorid

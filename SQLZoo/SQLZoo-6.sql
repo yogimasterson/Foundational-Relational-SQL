@@ -35,7 +35,9 @@ FROM goal JOIN eteam ON teamid=id
    -- game JOIN eteam ON (team1=eteam.id) or game JOIN eteam ON (team2=eteam.id)
    -- Notice that because id is a column name in both game and eteam you must specify eteam.id instead of just id
    -- List the the dates of the matches and the name of the team in which 'Fernando Santos' was the team1 coach.
-
+SELECT mdate, teamname
+FROM game JOIN eteam ON (team1=eteam.id)
+  WHERE coach = 'Fernando Santos'
 -- 7. List the player for every goal scored in a game where the stadium was 'National Stadium, Warsaw'
 SELECT player
 FROM goal JOIN game ON matchid=id
@@ -52,7 +54,9 @@ FROM eteam JOIN goal ON id=teamid
   GROUP BY teamname
 
 -- 10. Show the stadium and the number of goals scored in each stadium.
-
+SELECT DISTINCT stadium, COUNT(gtime)
+FROM game JOIN goal ON matchid = id
+  GROUP BY stadium
 -- 11. For every match involving 'POL', show the matchid, date and the number of goals scored.
 SELECT matchid, mdate, COUNT(player) AS goals
 FROM game JOIN goal ON matchid=id
@@ -60,7 +64,9 @@ FROM game JOIN goal ON matchid=id
   GROUP BY matchid, mdate
 
 -- 12. For every match where 'GER' scored, show matchid, match date and the number of goals scored by 'GER'
-
+SELECT DISTINCT matchid, mdate, COUNT(teamid) AS count
+FROM game JOIN goal ON matchid = id
+  WHERE teamid = 'GER' Group by matchid,mdate, teamid
 -- 13. List every match with the goals scored by each team as shown. This will use "CASE WHEN" which has not been explained in any previous exercises.
            mdate	   team1	score1	team2	score2
         1 July 2012	  ESP	    4	     ITA	  0
