@@ -12,21 +12,21 @@ It is recommended that you complete these specs in order. The LeetCode exercises
 
 ##SQL Foundations Practice Exercises
 
-- [ ] 10 TOTAL “Easy” and “Medium” level database challenges on LeetCode completed
-  - [ ] Solutions added to artifact repo
+- [x] 10 TOTAL “Easy” and “Medium” level database challenges on LeetCode completed
+  - [x] Solutions added to artifact repo
 
 ##Exercises to Reinforce Conceptual Knowledge
 
-- [ ] 10 Relational Algebra challenges on HackerRank completed
-  - [ ] Solutions added to artifact repo
-- [ ] 5 Database Normalization challenges on HackerRank completed
-  - [ ] Solutions added to artifact repo
+- [x] 10 Relational Algebra challenges on HackerRank completed
+  - [x] Solutions added to artifact repo
+- [x] 5 Database Normalization challenges on HackerRank completed
+  - [x] Solutions added to artifact repo
 
 ##Other
 
-- [ ] SQL files are well formatted and readable.
-- [ ] All the SQL keywords are capitalized.
-- [ ] The artifact produced is properly licensed, preferably with the MIT license
+- [x] SQL files are well formatted and readable.
+- [x] All the SQL keywords are capitalized.
+- [x] The artifact produced is properly licensed, preferably with the MIT license
 
 ##Stretch
 
